@@ -9,7 +9,7 @@
 #include <Stepper.h>
 
 
-Stepper stepper(2400, STEPPER_GRIPPER_PIN_0, STEPPER_GRIPPER_PIN_1, STEPPER_GRIPPER_PIN_2, STEPPER_GRIPPER_PIN_3);
+Stepper stepper(600, STEPPER_GRIPPER_PIN_0, STEPPER_GRIPPER_PIN_1, STEPPER_GRIPPER_PIN_2, STEPPER_GRIPPER_PIN_3);
 RampsStepper stepperRotate(Z_STEP_PIN, Z_DIR_PIN, Z_ENABLE_PIN);
 RampsStepper stepperLower(Y_STEP_PIN, Y_DIR_PIN, Y_ENABLE_PIN);
 RampsStepper stepperHigher(X_STEP_PIN, X_DIR_PIN, X_ENABLE_PIN);
@@ -40,6 +40,7 @@ void setup() {
   pinMode(Q_ENABLE_PIN , OUTPUT);
   
   //GripperPins
+  stepper.setSpeed(600);
   pinMode(STEPPER_GRIPPER_PIN_0, OUTPUT);
   pinMode(STEPPER_GRIPPER_PIN_1, OUTPUT);
   pinMode(STEPPER_GRIPPER_PIN_2, OUTPUT);
@@ -117,8 +118,9 @@ void cmdDwell(Cmd (&cmd)) {
   delay(int(cmd.valueT * 1000));
 }
 void cmdGripperOn(Cmd (&cmd)) {
-  stepper.setSpeed(5);
-  stepper.step(int(cmd.valueT));
+  stepper.setSpeed(60);
+  stepper.step(520);
+//  Serial.println("grip on");
   delay(50);
   digitalWrite(STEPPER_GRIPPER_PIN_0, LOW);
   digitalWrite(STEPPER_GRIPPER_PIN_1, LOW);
@@ -128,8 +130,9 @@ void cmdGripperOn(Cmd (&cmd)) {
   //printFault();
 }
 void cmdGripperOff(Cmd (&cmd)) {
-  stepper.setSpeed(5);
-  stepper.step(-int(cmd.valueT));
+  stepper.setSpeed(60);
+  stepper.step(-500);
+//  Serial.println("grip off");
   delay(50);
   digitalWrite(STEPPER_GRIPPER_PIN_0, LOW);
   digitalWrite(STEPPER_GRIPPER_PIN_1, LOW);
@@ -204,5 +207,3 @@ void executeCommand(Cmd cmd) {
     handleAsErr(cmd); 
   }
 }
-
-
