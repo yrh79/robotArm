@@ -40,7 +40,6 @@ void setup() {
   pinMode(Q_ENABLE_PIN , OUTPUT);
   
   //GripperPins
-  stepper.setSpeed(600);
   pinMode(STEPPER_GRIPPER_PIN_0, OUTPUT);
   pinMode(STEPPER_GRIPPER_PIN_1, OUTPUT);
   pinMode(STEPPER_GRIPPER_PIN_2, OUTPUT);
