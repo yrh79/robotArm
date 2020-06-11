@@ -3,10 +3,12 @@
 
 class RampsStepper {
 public:
-  RampsStepper(int aStepPin, int aDirPin, int aEnablePin);
+  RampsStepper(int aStepPin, int aDirPin, int aEnablePin, int aEndStopPin);
   void enable(bool value = true);
   void disable();
-  
+
+  bool endStop();
+  void autoHome();
   bool isOnPosition() const;
   int getPosition() const;
   void setPosition(int value);
@@ -27,7 +29,8 @@ private:
     
   int stepPin;
   int dirPin;
-  int enablePin;  
+  int enablePin; 
+  int endStopPin;
   
   float radToStepFactor;
 };

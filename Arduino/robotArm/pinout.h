@@ -55,6 +55,10 @@
 #define STEPPER_GRIPPER_PIN_2 A4
 #define STEPPER_GRIPPER_PIN_3 A10
 
+//End Stop
+#define X_MIN 3
+#define Y_MIN 14
+#define Z_MIN 18
 
 
 #endif
