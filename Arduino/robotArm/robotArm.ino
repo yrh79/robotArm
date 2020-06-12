@@ -7,7 +7,9 @@
 #include "command.h"
 
 #include <Stepper.h>
+#include <Servo.h>
 
+Servo myservo;  // create servo object to control a servo
 
 Stepper stepper(600, STEPPER_GRIPPER_PIN_0, STEPPER_GRIPPER_PIN_1, STEPPER_GRIPPER_PIN_2, STEPPER_GRIPPER_PIN_3);
 RampsStepper stepperRotate(Z_STEP_PIN, Z_DIR_PIN, Z_ENABLE_PIN, Z_MIN);
@@ -64,6 +66,8 @@ void setup() {
   stepperLower.setPositionRad(0);          // 0°
   stepperRotate.setPositionRad(0);         // 0°
   stepperExtruder.setPositionRad(0);
+  myservo.attach(SERVO_PIN);
+  myservo.write(0);
 
   //enable and init..
   setStepperEnable(false);
@@ -158,6 +162,12 @@ void cmdFanOn() {
 void cmdFanOff() {
   fan.enable(false);
 }
+void cmdCloseGate() {
+  myservo.write(0);
+}
+void cmdOpenGate() {
+  myservo.write(90);
+}
 
 void handleAsErr(Cmd (&cmd)) {
   printComment("Unknown Cmd " + String(cmd.id) + String(cmd.num) + " (queued)");
@@ -235,6 +245,8 @@ void executeCommand(Cmd cmd) {
       //case 0: cmdEmergencyStop(); break;
       case 3: cmdGripperOn(cmd); break;
       case 5: cmdGripperOff(cmd); break;
+      case 6: cmdOpenGate(); break;
+      case 7: cmdCloseGate(); break;
       case 8: getReady(); break;
       case 17: cmdStepperOn(); break;
       case 18: cmdStepperOff(); break;

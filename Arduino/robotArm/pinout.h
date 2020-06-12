@@ -60,5 +60,6 @@
 #define Y_MIN 14
 #define Z_MIN 18
 
+#define SERVO_PIN 4
 
 #endif
